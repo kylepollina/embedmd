@@ -1,56 +1,29 @@
 
-# topo2geo
+# embedmd
 
-CLI for converting [TopoJSON](https://en.wikipedia.org/wiki/GeoJSON#TopoJSON) files to [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON)
+Note: this project has been stalled. The [markdown in HTML](https://python-markdown.github.io/extensions/md_in_html/) extension of the [Markdown](https://python-markdown.github.io/) package does not have any good feature to embed tables into HTML. That was my main use case.
 
-### Installation
-
-```
-pip install topo2geo
-```
-
-Depends on [shapely](https://pypi.org/project/Shapely/) and [click](https://pypi.org/project/click/)
-
-### Usage
+## Installation
 
 ```
-[~]$ topo2geo input.topojson output.geojson
+git clone https://github.com/kylepollina/embedmd
+cd embedmd
+python3 setup.py install
 ```
 
-### Multilayered Topojsons
-If the topojson contains mulitple layers (i.e. there are multiple values in the "objects" key). Then seperate geojson files will be output with the layer name. 
+## Usage
 
-For example a topojson containing states and counties:
-```
-{
-    "type": "Topology",
-    "objects": {
-        "county": {
-            "type": "GeometryCollection",
-            "geometries": [...]
-        },
-        "state": {
-            "type": "GeometryCollection",
-            "geometries": [...]
-        }
-    }
-}
-```
-would produce two geojson files, `output_geo_county.json` and `output_geo_state.json`
+Place this text in your HTML file where you want to embed markdown:
 
-### Troubleshooting
-If you experience a "segmentation fault" one thing to try is explained [here](https://github.com/Toblerity/Shapely#source-distributions):
-```
-pip install shapely --no-binary shapely
+```html
+'#INCLUDE filename.md'
 ```
 
-### Credits
-Originally written by [sgillies](https://github.com/sgillies) and [perrygeo](https://github.com/perrygeo). Converted to Python3 and packaged into a CLI by [kylepollina](https://github.com/kylepollina).
+Where `filename.md` is pointing to the markdown file you wish to embed in that spot of the HTML file.
 
-Sources:
-* https://gist.github.com/perrygeo/1e767e42e8bc54ad7262
-* https://github.com/sgillies/topojson/blob/master/topojson.py
+```shell
+[~]$ embedmd input.html optional_output.html
+```
 
--------
+Running `embedmd` with the input HTML file and an option output file if you wish to not overwrite the original.
 
-License - https://github.com/topojson/topojson/blob/master/LICENSE.md
