@@ -25,5 +25,5 @@ Where `filename.md` is pointing to the markdown file you wish to embed in that s
 [~]$ embedmd input.html optional_output.html
 ```
 
-Running `embedmd` with the input HTML file and an option output file if you wish to not overwrite the original.
+Running `embedmd` with the input HTML file and an optional output file if you wish to not overwrite the original.
 
