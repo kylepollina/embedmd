@@ -6,6 +6,12 @@ Note: this project has been stalled. The [markdown in HTML](https://python-markd
 ## Installation
 
 ```
+pip install embedmd
+```
+
+or
+
+```
 git clone https://github.com/kylepollina/embedmd
 cd embedmd
 python3 setup.py install
