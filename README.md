@@ -25,11 +25,10 @@ Place this text in your HTML file where you want to embed markdown:
 '#INCLUDE filename.md'
 ```
 
-Where `filename.md` is pointing to the markdown file you wish to embed in that spot of the HTML file.
+Where `filename.md` is pointing to the markdown file you wish to embed in that spot of the HTML file. Then, run the tool from the command line.
 
 ```shell
-[~]$ embedmd input.html optional_output.html
+[~]$ embedmd input.html
 ```
 
 `embedmd` supports an optional output file if you wish to not overwrite the original file
-
