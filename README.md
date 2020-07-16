@@ -32,3 +32,7 @@ Where `filename.md` is pointing to the markdown file you wish to embed in that s
 ```
 
 `embedmd` supports an optional output file if you wish to not overwrite the original file
+
+```shell
+[~]$ embedmd input.html output.html
+```
