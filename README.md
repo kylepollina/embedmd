@@ -1,7 +1,7 @@
 
 # embedmd
 
-`embedmd` is a command line tool to embed Markdown documents within HTML. This plugin utilizes the very powerful [Python-Markdown](https://python-markdown.github.io/) package.
+`embedmd` is a command line tool to embed Markdown documents within HTML. This tool utilizes the very powerful [Python-Markdown](https://python-markdown.github.io/) package.
 
 ## Installation
 
