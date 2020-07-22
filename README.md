@@ -1,7 +1,7 @@
 
 # embedmd
 
-Note: this project has been stalled. The [markdown in HTML](https://python-markdown.github.io/extensions/md_in_html/) extension of the [Markdown](https://python-markdown.github.io/) package does not have any good feature to embed tables into HTML. That was my main use case.
+`embedmd` is a command line tool to embed Markdown documents within HTML. This plugin utilizes the very powerful [Python-Markdown](https://python-markdown.github.io/) package.
 
 ## Installation
 
@@ -28,11 +28,99 @@ Place this text in your HTML file where you want to embed markdown:
 Where `filename.md` is pointing to the markdown file you wish to embed in that spot of the HTML file. Then, run the tool from the command line.
 
 ```shell
-[~]$ embedmd input.html
+embedmd input.html
 ```
 
 `embedmd` supports an optional output file if you wish to not overwrite the original file
 
 ```shell
-[~]$ embedmd input.html output.html
+embedmd input.html output.html
+```
+
+### Example
+
+Say we have this HTML file...
+
+```html
+<!-- template.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <div id="container">
+
+      '#INCLUDE test1.md'
+
+      '#INCLUDE test2.md'
+      
+    </div>
+  </body>
+</html>
+```
+
+... and we want to embed these markdown documents within.
+
+```markdown
+# test1.md
+
+Hello world, this is brought to you using [embedmd](https://github.com/kylepollina/embedmd)
+```
+
+```markdown
+# test2.md
+
+| date       | species
+| :-----     | :------- 
+| 2020-07-21 | Red-winged blackbird
+| 2020-07-21 | Eurasian Tree sparrow
+```
+
+Running the `embedmd` command:
+
+```
+embedmd template.html
+```
+
+will change `template.html` to be
+
+```html
+<!-- template.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <div id="container">
+
+      <h1>test1.md</h1>
+<p>Hello world, this is brought to you using <a href="https://github.com/kylepollina/embedmd">embedmd</a></p>
+
+      <h1>test2.md</h1>
+<table>
+<thead>
+<tr>
+<th align="left">date</th>
+<th align="left">species</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">2020-07-21</td>
+<td align="left">Red-winged blackbird</td>
+</tr>
+<tr>
+<td align="left">2020-07-21</td>
+<td align="left">Eurasian Tree sparrow</td>
+</tr>
+</tbody>
+</table>
+      
+    </div>
+  </body>
+</html>
 ```
