@@ -124,3 +124,5 @@ will change `template.html` to be
   </body>
 </html>
 ```
+
+![](images/img1.png)
