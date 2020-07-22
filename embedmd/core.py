@@ -6,7 +6,6 @@ import re
 import markdown
 from pathlib import Path
 import click
-from . import version as VERSION
 
 CONTEXT_SETTINGS = {
     'help_option_names': ['-h', '--help']
@@ -16,7 +15,7 @@ CONTEXT_SETTINGS = {
 @click.command(context_settings=CONTEXT_SETTINGS)
 @click.argument('html_file')
 @click.argument('output_file', required=False)
-def embedmd(html_file: str, output_file:str=None):
+def embedmd(html_file, output_file=None):
     """
     Embed markdown files into html files
     """
@@ -27,7 +26,7 @@ def embedmd(html_file: str, output_file:str=None):
     try:
         with open(html_file, 'r') as f:
             html = f.read()
-    except:
+    except IOError:
         print('Error: Could not read file')
         return
 
@@ -37,13 +36,11 @@ def embedmd(html_file: str, output_file:str=None):
             with open(f'{filename}.md', 'r') as f:
                 md = f.read()
         except IOError:
-            ...
-            continue
+            print(f'Error: Filename {filename}.md can not be read. Exiting...')
 
-        md_html = markdown.markdown(md, extensions=['md_in_html'])
-        a = f"'#INCLUDE {filename}.md'"
-        print(a)
-        html = html.replace(a, md_html)
+        md_html = markdown.markdown(md, extensions=['extra'])
+        search_string = f"'#INCLUDE {filename}.md'"
+        html = html.replace(search_string, md_html)
 
     output_file = output_file if output_file else html_file
 
