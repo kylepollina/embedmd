@@ -1,20 +1,14 @@
 
 # embedmd
 
-`embedmd` is a command line tool to embed Markdown documents within HTML. This tool utilizes the very powerful [Python-Markdown](https://python-markdown.github.io/) package.
+`embedmd` is a command line tool to embed Markdown 
+documents within HTML. This tool utilizes the very powerful 
+[Python-Markdown](https://python-markdown.github.io/) package.
 
 ## Installation
 
 ```
 pip install embedmd
-```
-
-or
-
-```
-git clone https://github.com/kylepollina/embedmd
-cd embedmd
-python3 setup.py install
 ```
 
 ## Usage
@@ -29,12 +23,6 @@ Where `filename.md` is pointing to the markdown file you wish to embed in that s
 
 ```shell
 embedmd input.html
-```
-
-`embedmd` supports an optional output file if you wish to not overwrite the original file
-
-```shell
-embedmd input.html output.html
 ```
 
 ### Example
@@ -55,7 +43,7 @@ Say we have this HTML file...
       '#INCLUDE test1.md'
 
       '#INCLUDE test2.md'
-      
+
     </div>
   </body>
 </html>
@@ -73,7 +61,7 @@ Hello world, this is brought to you using [embedmd](https://github.com/kylepolli
 # test2.md
 
 | date       | species
-| :-----     | :------- 
+| :-----     | :-------
 | 2020-07-21 | Red-winged blackbird
 | 2020-07-21 | Eurasian Tree sparrow
 ```
@@ -84,7 +72,7 @@ Running the `embedmd` command:
 embedmd template.html
 ```
 
-will change `template.html` to be
+will print out
 
 ```html
 <!-- template.html -->
@@ -119,13 +107,17 @@ will change `template.html` to be
 </tr>
 </tbody>
 </table>
-      
+
     </div>
   </body>
 </html>
 ```
 
+-------
+
 ![](images/img1.png)
+
+-------
 
 ### License
 

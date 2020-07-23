@@ -1,10 +1,10 @@
 """
-topo2geo/core.py
+embedmd/core.py
 """
 
 import re
-import markdown
 from pathlib import Path
+import markdown
 import click
 
 CONTEXT_SETTINGS = {
@@ -14,10 +14,17 @@ CONTEXT_SETTINGS = {
 
 @click.command(context_settings=CONTEXT_SETTINGS)
 @click.argument('html_file')
-@click.argument('output_file', required=False)
-def embedmd(html_file, output_file=None):
+def embedmd(html_file):
     """
     Embed markdown files into html files
+
+    within an HTML file, place a link to a markdown file like this:
+
+      '#INCLUDE filename.md'
+
+    and run
+
+      embedmd input.html
     """
     if not Path(html_file).exists():
         print(f'Error: file {html_file} does not exist')
@@ -33,16 +40,14 @@ def embedmd(html_file, output_file=None):
     markdown_files = re.findall(r'#INCLUDE (.*).md', html)
     for filename in markdown_files:
         try:
-            with open(f'{filename}.md', 'r') as f:
+            with open(Path(html_file).parent / f'{filename}.md', 'r') as f:
                 md = f.read()
         except IOError:
             print(f'Error: Filename {filename}.md can not be read. Exiting...')
+            quit()
 
         md_html = markdown.markdown(md, extensions=['extra'])
         search_string = f"'#INCLUDE {filename}.md'"
         html = html.replace(search_string, md_html)
 
-    output_file = output_file if output_file else html_file
-
-    with open(output_file, 'w+') as f:
-        f.write(html)
+    print(html)
