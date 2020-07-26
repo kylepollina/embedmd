@@ -18,6 +18,7 @@ from embedmd import core
             """,
             ["<#INCLUDE test.md>", "<#INCLUDE test.md : param1=True, param2='test'>"]
         ),
+        # Bad inputs
         ("<#INCLUDE test.md<", []),
         ("#INCLUDE test.md>", [])
     ]
@@ -35,3 +36,23 @@ def test_get_included_statements(input_html, expected_statements):
 )
 def test_get_filename(statement, expected_filename):
     assert core.get_filename(statement) == expected_filename
+
+
+@pytest.mark.parametrize(
+    'statement, expected_parameters',
+    [
+        (
+            "<#INCLUDE test.md: param1=True, param2='earthscience'>",
+            ["param1=True", "param2='earthscience'"]
+        ),
+        (
+            "<#INCLUDE test.md>", None
+        ),
+    ]
+)
+def test_get_parameters(statement, expected_parameters):
+    assert core.get_parameters(statement) == expected_parameters
+
+
+def test_process_markdown():
+    ...
