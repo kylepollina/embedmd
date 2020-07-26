@@ -37,17 +37,64 @@ def embedmd(html_file):
         print('Error: Could not read file')
         return
 
-    markdown_files = re.findall(r'#INCLUDE (.*).md', html)
-    for filename in markdown_files:
+    processed_html = process_html(html)
+    print(processed_html)
+
+def process_html(html) -> str:
+    """
+    """
+
+    # Ex:
+    # included_statements = ['<#INCLUDE file1.md : param1='str', param2=True>', '...']
+    included_statements = get_included_statements(html)
+
+    for statement in included_statements:
         try:
-            with open(Path(html_file).parent / f'{filename}.md', 'r') as f:
-                md = f.read()
-        except IOError:
-            print(f'Error: Filename {filename}.md can not be read. Exiting...')
-            quit()
+            validate_statement(statement)
 
-        md_html = markdown.markdown(md, extensions=['extra'])
-        search_string = f"'#INCLUDE {filename}.md'"
-        html = html.replace(search_string, md_html)
+            filename = get_filename(statement)
+            parameters = get_parameters(statement)
+            markdown = process_markdown(filename, parameters)
+            html_md = markdown_to_html(markdown)
+            html = html.replace(statement, html_md)
 
-    print(html)
+        except InvalidStatement:
+            ...
+
+    return html
+
+
+class InvalidStatement(Exception):
+    pass
+
+def validate_statement(statement) -> None:
+    ...
+
+def process_markdown(filename, parameters):
+    ...
+
+def markdown_to_html(markdown) -> str:
+    ...
+
+def get_included_statements(html) -> list:
+    return re.findall(r'<#INCLUDE (?:.*)>', html)
+
+
+def get_filename(statement) -> str:
+   filename = re.findall(r'\s(.*).md', statement)
+   if len(filename) > 1:
+       raise InvalidStatement
+   filename = filename[0] + '.md'
+   filename = filename.strip()
+   return filename
+
+
+def get_parameters(statement) -> list:
+    parameters = statement.split(':')
+
+    if len(parameters) == 1:
+        return None
+
+    parameters = parameters[1].split(',')
+    parameters = [param.strip().replace(' ', '') for param in parameters]
+    return parameters
