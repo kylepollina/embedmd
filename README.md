@@ -16,10 +16,11 @@ pip install embedmd
 Place this text in your HTML file where you want to embed markdown:
 
 ```html
-'#INCLUDE filename.md'
+<#INCLUDE filename.md>
 ```
 
-Where `filename.md` is pointing to the markdown file you wish to embed in that spot of the HTML file. Then, run the tool from the command line.
+Where `filename.md` is pointing to the markdown file you wish to embed
+in that spot of the HTML file. Then, run the tool from the command line.
 
 ```shell
 embedmd input.html
@@ -40,9 +41,9 @@ Say we have this HTML file...
   <body>
     <div id="container">
 
-      '#INCLUDE test1.md'
+      <#INCLUDE test1.md>
 
-      '#INCLUDE test2.md'
+      <#INCLUDE test2.md>
 
     </div>
   </body>
@@ -114,8 +115,40 @@ will print out
 ```
 
 -------
+![example output](images/img1.png)
+-------
 
-![](images/img1.png)
+
+### Parameters
+
+`embedmd` also supports sending simple parameters from the HTML file to the
+markdown file. Using parameters follows this pattern:
+
+```html
+<!-- params.html -->
+<#INCLUDE filename.md : param1=value1, param2=value2>
+```
+
+And `filename.md` can capture these parameters by encapsulating 
+the parameters with double curly braces.
+
+```markdown
+# filename.md
+
+{{param1}}
+
+{{ param2 }}
+```
+
+Running `embedmd params.html` will print:
+
+```html
+<!-- test.html -->
+
+<h1>filename.md</h1>
+<p>value1</p>
+<p>value2</p>
+```
 
 -------
 
