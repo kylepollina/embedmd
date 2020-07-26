@@ -143,7 +143,7 @@ the parameters with double curly braces.
 Running `embedmd params.html` will print:
 
 ```html
-<!-- test.html -->
+<!-- params.html -->
 
 <h1>filename.md</h1>
 <p>value1</p>
