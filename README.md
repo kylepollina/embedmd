@@ -2,8 +2,8 @@
 # embedmd - embed Markdown into Markdown or HTML
 
 `embedmd` is a command line tool to embed Markdown within
-other documents. Right now you can embed markdown within other
-markdown documents as well as embed markdown within html documents.
+other documents. Right now you can embed Markdown within other
+Markdown documents as well as embed markdown within html documents.
 
 This tool utilizes the
 [Python-Markdown](https://python-markdown.github.io/) package.
@@ -22,13 +22,13 @@ pip install git+https://github.com/kylepollina/embedmd
 
 ## Embed Markdown within HTML
 
-Place this text in your HTML file where you want to embed markdown:
+Place this text in your HTML file where you want to embed Markdown:
 
 ```html
 <#INCLUDE "filename.md">
 ```
 
-Where `filename.md` is pointing to the markdown file you wish to embed
+Where `filename.md` is pointing to the Markdown file you wish to embed
 in that spot of the HTML file. Then, run the tool from the command line.
 
 ```shell
@@ -39,15 +39,22 @@ embedmd input.html
 
 Place this text in your Markdown file where you want to embed markdown:
 
-```markdown
+```Markdown
 #include "filename.md"
 ```
 
-Where `filename.md` is pointing to the markdown file you wish to embed
+Where `filename.md` is pointing to the Markdown file you wish to embed
 in that spot of the HTML file. Then, run the tool from the command line.
 
 ```shell
 embedmd input.md
+```
+
+### --to-html
+You can directly convert a Markdown to an HTML file by adding the `--to-html` flag.
+
+```shell
+embedmd input.md --to-html > output.html
 ```
 
 ## Example
@@ -74,15 +81,15 @@ Say we have this HTML file...
 </html>
 ```
 
-... and we want to embed these markdown documents within.
+... and we want to embed these Markdown documents within.
 
-```markdown
+```Markdown
 # test1.md
 
 Hello world, this is brought to you using [embedmd](https://github.com/kylepollina/embedmd)
 ```
 
-```markdown
+```Markdown
 # test2.md
 
 | date       | species
@@ -93,7 +100,7 @@ Hello world, this is brought to you using [embedmd](https://github.com/kylepolli
 #include "test3.md"
 ```
 
-```markdown
+```Markdown
 # test3.md
 Wort wort wort
 ```

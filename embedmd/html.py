@@ -26,10 +26,14 @@ def process_html(html_file_path: str) -> str:
         print(f'Error reading file {html_file_path}')
         quit()
 
+    return process_html_text(html_file_path, html_text)
+
+def process_html_text(html_file_path: Path, html_text: str) -> str:
     """
     Ex:
     included_statements == ['<#INCLUDE file1.md : param1='str', param2=True>', '...']
     """
+
     for statement in get_included_markdown_statements(html_text):
         # TODO validate statement
         md_filename = get_filename_from_statement(statement)
@@ -37,7 +41,6 @@ def process_html(html_file_path: str) -> str:
 
         md_text = md.process_md(md_file_path)
         html_text = html_text.replace(statement, markdown.markdown(md_text, extensions=['extra']))
-
 
     return html_text
 
