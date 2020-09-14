@@ -35,9 +35,6 @@ def process_html(html_file_path: str) -> str:
         md_filename = get_filename_from_statement(statement)
         md_file_path = html_file_path.parent / md_filename
 
-        # Do nothing with parameters right now TODO
-        # parameters = get_parameters_from_statement(statement)
-
         md_text = md.process_md(md_file_path)
         html_text = html_text.replace(statement, markdown.markdown(md_text, extensions=['extra']))
 
@@ -46,7 +43,7 @@ def process_html(html_file_path: str) -> str:
 
 
 def get_included_markdown_statements(text) -> list:
-    return re.findall(r'<#INCLUDE (?:.*?).md(?:.*?)>', text)
+    return re.findall(r'<#INCLUDE "(?:.*?).md(?:.*?)">', text)
 
 
 def get_filename_from_statement(statement: str) -> str:
@@ -60,33 +57,6 @@ def get_filename_from_statement(statement: str) -> str:
     filename = filename[0] + '.md'
     filename = filename.strip()
     return filename
-
-
-def get_parameters_from_statement(statement: str) -> list or None:
-    """
-    Extract the parameters from a statement, if any exist
-
-    Ex:
-    TODO
-    """
-    parameters = statement.split(':')
-
-    if len(parameters) == 1:
-        # No parameters present
-        return None
-    elif len(parameters) > 2:
-        # There should not be more that one : in the statement
-        raise InvalidStatement(statement)
-
-    parameters = re.findall(r'<#INCLUDE(?:.*):(.*)>', statement)[0]
-    parameters = parameters.strip()
-
-    if len(parameters.split('=')) != len(parameters.split(',')) + 1:
-        breakpoint()
-        raise InvalidStatement(statement)
-
-    parameters = [param.strip() for param in parameters.split(',')]
-    return parameters
 
 class InvalidStatement(Exception):
     pass
