@@ -50,7 +50,7 @@ def get_filename_from_statement(statement: str) -> str:
     """
     Get the markdown filename from the statement
     """
-    filename = re.findall(r'\s(.*?).md', statement)
+    filename = re.findall(r'\s"(.*?).md"', statement)
     if len(filename) > 1:
         # Multiple files given in single statement
         raise InvalidStatement(statement)

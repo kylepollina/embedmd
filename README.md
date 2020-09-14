@@ -1,8 +1,11 @@
 
-# embedmd
+# embedmd - embed Markdown into Markdown or HTML
 
-`embedmd` is a command line tool to embed Markdown 
-documents within HTML. This tool utilizes the very powerful 
+`embedmd` is a command line tool to embed Markdown within
+other documents. Right now you can embed markdown within other
+markdown documents as well as embed markdown within html documents.
+
+This tool utilizes the
 [Python-Markdown](https://python-markdown.github.io/) package.
 
 ## Installation
@@ -11,12 +14,18 @@ documents within HTML. This tool utilizes the very powerful
 pip install embedmd
 ```
 
-## Usage
+or
+
+```
+pip install git+https://github.com/kylepollina/embedmd
+```
+
+## Embed Markdown within HTML
 
 Place this text in your HTML file where you want to embed markdown:
 
 ```html
-<#INCLUDE filename.md>
+<#INCLUDE "filename.md">
 ```
 
 Where `filename.md` is pointing to the markdown file you wish to embed
@@ -26,7 +35,22 @@ in that spot of the HTML file. Then, run the tool from the command line.
 embedmd input.html
 ```
 
-### Example
+## Embed Markdown within other Markdown
+
+Place this text in your Markdown file where you want to embed markdown:
+
+```markdown
+#include "filename.md"
+```
+
+Where `filename.md` is pointing to the markdown file you wish to embed
+in that spot of the HTML file. Then, run the tool from the command line.
+
+```shell
+embedmd input.md
+```
+
+## Example
 
 Say we have this HTML file...
 
@@ -41,9 +65,9 @@ Say we have this HTML file...
   <body>
     <div id="container">
 
-      <#INCLUDE test1.md>
+      <#INCLUDE "test1.md">
 
-      <#INCLUDE test2.md>
+      <#INCLUDE "test2.md">
 
     </div>
   </body>
@@ -65,6 +89,13 @@ Hello world, this is brought to you using [embedmd](https://github.com/kylepolli
 | :-----     | :-------
 | 2020-07-21 | Red-winged blackbird
 | 2020-07-21 | Eurasian Tree sparrow
+
+#include "test3.md"
+```
+
+```markdown
+# test3.md
+Wort wort wort
 ```
 
 Running the `embedmd` command:
@@ -108,6 +139,8 @@ will print out
 </tr>
 </tbody>
 </table>
+<h1>test3.md</h1>
+<p>Wort wort wort</p>
 
     </div>
   </body>
@@ -116,40 +149,6 @@ will print out
 
 -------
 ![example output](images/img1.png)
--------
-
-
-### Parameters
-
-`embedmd` also supports sending simple parameters from the HTML file to the
-markdown file. Using parameters follows this pattern:
-
-```html
-<!-- params.html -->
-<#INCLUDE filename.md : param1=value1, param2=value2>
-```
-
-And `filename.md` can capture these parameters by encapsulating 
-the parameters with double curly braces.
-
-```markdown
-# filename.md
-
-{{param1}}
-
-{{ param2 }}
-```
-
-Running `embedmd params.html` will print:
-
-```html
-<!-- params.html -->
-
-<h1>filename.md</h1>
-<p>value1</p>
-<p>value2</p>
-```
-
 -------
 
 ### License
