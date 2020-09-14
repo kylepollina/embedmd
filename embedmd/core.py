@@ -39,7 +39,7 @@ These parameters will get replaced with the values you give them""")
 
 @click.command()
 @click.argument('html_file', required=False)
-@click.option('-h', is_flag=True, callback=print_help, expose_value=False)
+@click.option('-h', is_flag=True, expose_value=False)
 def embedmd(html_file):
     if html_file:
         processed_html = process_html(html_file)
