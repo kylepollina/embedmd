@@ -3,7 +3,7 @@
 
 `embedmd` is a command line tool to embed Markdown within
 other documents. Right now you can embed Markdown within other
-Markdown documents as well as embed markdown within html documents.
+Markdown documents as well as embed markdown within HTML documents.
 
 This tool utilizes the
 [Python-Markdown](https://python-markdown.github.io/) package.
@@ -25,7 +25,7 @@ pip install git+https://github.com/kylepollina/embedmd
 Place this text in your HTML file where you want to embed Markdown:
 
 ```html
-<#INCLUDE "filename.md">
+<#INCLUDE filename.md/>
 ```
 
 Where `filename.md` is pointing to the Markdown file you wish to embed
@@ -40,7 +40,7 @@ embedmd input.html
 Place this text in your Markdown file where you want to embed markdown:
 
 ```Markdown
-#include "filename.md"
+[#INCLUDE filename.md]
 ```
 
 Where `filename.md` is pointing to the Markdown file you wish to embed
@@ -48,13 +48,6 @@ in that spot of the HTML file. Then, run the tool from the command line.
 
 ```shell
 embedmd input.md
-```
-
-### --to-html
-You can directly convert a Markdown to an HTML file by adding the `--to-html` flag.
-
-```shell
-embedmd input.md --to-html > output.html
 ```
 
 ## Example
@@ -72,9 +65,9 @@ Say we have this HTML file...
   <body>
     <div id="container">
 
-      <#INCLUDE "test1.md">
+      <#INCLUDE test1.md/>
 
-      <#INCLUDE "test2.md">
+      <#INCLUDE test2.md/>
 
     </div>
   </body>
