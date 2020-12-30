@@ -1,28 +1,51 @@
+"""
+CLI for embedding markdown within HTML and markdown within markdown
+"""
 
-from pathlib import Path
-import click
+import argparse
+import sys
 
-from . import html
-from . import md
+from .html import process_html
+from .md import process_markdown
 
 
-@click.command()
-@click.argument('file_path', required=True)
-@click.option('--to-html', default=False, is_flag=True, help="""
-If --to-html flag added while processing, Markdown document will automatically
-be converted to HTML document.
+def parse_args():
+    parser = argparse.ArgumentParser(
+        prog='embedmd',
+        description='cli for embedding markdown and html documents into each other',
+        usage="embedmd input_file.md -o output_file.md"
+    )
 
-    Ex: embedmd input.md --to-html > output.html
-""")
-def embedmd(file_path, to_html):
-    """embedmd is a command line tool for embedding markdown files into other files"""
+    parser.add_argument(
+        'input',
+        type=str,
+        metavar='input',
+        help='input filename'
+    )
 
-    if file_path:
-        if file_path.endswith('.html'):
-            processed_html = html.process_html(file_path)
-            print(processed_html)
-        elif file_path.endswith('.md'):
-            if to_html:
-                print(html.process_html_text(Path('.'), f'<#INCLUDE "{file_path}">'))
-            else:
-                print(processed_md)
+    parser.add_argument(
+        '-o', '--output',
+        type=str,
+        metavar='file',
+        help='optional filename to write to',
+    )
+
+    args = parser.parse_args()
+    return args
+
+
+def embedmd():
+    args = parse_args()
+    input_filename = args.input
+
+    if input_filename.endswith('.html'):
+        output = process_html(input_filename)
+
+    elif input_filename.endswith('.md'):
+        output = process_markdown(input_filename)
+
+    else:
+        print('Can not read input file type', file=sys.stderr)
+        quit(-1)
+
+    print(output, file=sys.stdout)

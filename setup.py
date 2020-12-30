@@ -26,7 +26,7 @@ setup(
     ],
     packages=['embedmd'],
     include_package_data=True,
-    install_requires=['click', 'markdown'],
+    install_requires=['markdown', 'argparse_ext'],
     entry_points={
         'console_scripts': [
             'embedmd=embedmd.core:embedmd'
