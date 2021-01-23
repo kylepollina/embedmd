@@ -26,12 +26,12 @@ def process_html(html_filepath: str) -> str:
         print(f'Error reading file {html_filepath}')
         quit(-1)
 
-    included_regex = r'(?P<statement><#include .*\.(md|html)\s*/>)'
+    included_regex = r'(?P<statement><#include .*\.(md|html)\s*>)'
     included_statements = re.findall(included_regex, html_text, flags=re.IGNORECASE)
     included_statements = [match[0] for match in included_statements]
 
     for statement in included_statements:
-        match = re.search(r'<#include (?P<filename>.*\.(md|html))\s*/>', statement, flags=re.IGNORECASE)
+        match = re.search(r'<#include (?P<filename>.*\.(md|html))\s*>', statement, flags=re.IGNORECASE)
         if not match:
             continue
         filename = match.group('filename')

@@ -25,7 +25,7 @@ pip install git+https://github.com/kylepollina/embedmd
 Place this text in your HTML file where you want to embed Markdown:
 
 ```html
-<#INCLUDE filename.md/>
+<#INCLUDE filename.md>
 ```
 
 Where `filename.md` is pointing to the Markdown file you wish to embed
@@ -65,9 +65,9 @@ Say we have this HTML file...
   <body>
     <div id="container">
 
-      <#INCLUDE test1.md/>
+      <#INCLUDE test1.md>
 
-      <#INCLUDE test2.md/>
+      <#INCLUDE test2.md>
 
     </div>
   </body>
